@@ -1,0 +1,25 @@
+
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR})
+
+#设置产生的二进制文件放在bin文件夹中
+#PROJECT_BINARY_DIR的含义是在那个文件夹中执行cmake命令
+#哪个文件夹就是PROJECT_BINARY_DIR
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+
+# 查找当前目录下的所有源文件,因为函数名为directory，肯定是文件夹
+# 并将名称保存到 DIR_SRCS 变量
+#aux_source_directory(./binary-search-407.cc DIR_SRCS)
+
+
+#目录下面有很多题目，要为每一个.cc文件生成相应的.out可执行文件
+    #set(SRC_407 ./Array/binary-search-407.cc)
+
+
+# 添加源文件，指定生成目标
+    #add_executable(Demo_407 ${SRC_407})
+
+
+# 添加静态链接库
+#指明demo二进制文件需要链接的二进制库，此处MathFunctions正是我们在lib目录下的
+#CMake文件中定义的二进制库
+#target_link_libraries(Demo MathFunctions)
