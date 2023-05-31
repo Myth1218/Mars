@@ -21,5 +21,5 @@ set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 
 
 #添加一个子目录并构建该子目录，告诉CMAKE我还有其它子目录的CMakeList.txt需要编译。目录下必须要有CMakeLists.txt
-add_subdirectory(${PROJECT_SOURCE_DIR}/lib/Math) 
+#add_subdirectory(${PROJECT_SOURCE_DIR}/lib/Math) 
 add_subdirectory(${PROJECT_SOURCE_DIR}/src)

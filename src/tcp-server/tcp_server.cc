@@ -11,6 +11,7 @@
 #include <arpa/inet.h>      //inet_aton()的头文件
 
 #include <signal.h>         //与信号相关的处理函数
+#include <error.h>          //处理系统调用和库调用错误相关的函数
 
 /// @brief 1. 创建socket 2.初始化服务器的地址 3. 绑定端口 4.监听 5.进行相应的优化:忽略某些信号 6.设置重复监听
 /// @param ip 
@@ -72,12 +73,40 @@ Mars::Tcp_server::Tcp_server(const char* ip, uint16_t port) {
         fprintf(stderr, "listen error\n");
         exit(1);
     }
-}   
-
-Mars::Tcp_server::~Tcp_server() {
-
 }
 
-void Mars::Tcp_server::do_accept() {
+
+Mars::Tcp_server::~Tcp_server() {
     
+}
+
+/// @brief 开始提供创建连接的服务： 1. accept
+
+/// 服务器中listenfd不需要设置为非阻塞，accept成功返回的connecfd需要设置为非阻塞。数据的传输都是通过connectfd实现的
+void Mars::Tcp_server::do_accept() {
+    int connect_sockfd;
+
+    while (true) {
+    //1. 连接
+        ///后两个为传出参数：客户端协议地址，协议地址长度
+        connect_sockfd = accept(listen_sockfd_, (struct sockaddr*)&client_addr_, &client_addr_len_);
+        if (connect_sockfd == -1) {
+            if(errno == EINTR) {        //The system call was interrupted by a signal that was caught before a valid connection arrived; see signal(7).
+                perror("accept error = EINTR\n");
+                continue;
+            }else if (errno == (EAGAIN || EWOULDBLOCK)) {
+                perror("accept error = (EAGAIN || EWOULDBLOCK)\n");  ///The socket is marked nonblocking and no connections are present to be accepted.
+                break;
+            }else if (errno == EMFILE) {       ///The per-process limit on the number of open file descriptors has been reached.
+                perror("accept error = EMFILE\n");
+            }
+            
+        }else {  //accept成功
+            //Todo 添加一些心跳机制
+            //添加消息队列机制
+            //写一个回显任务
+            
+        }
+    }
+
 }

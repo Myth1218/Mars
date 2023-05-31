@@ -1,0 +1,5 @@
+/home/myth/work/Server_prj/Mars/CMakeFiles/rebuild_cache.dir
+/home/myth/work/Server_prj/Mars/CMakeFiles/edit_cache.dir
+/home/myth/work/Server_prj/Mars/src/CMakeFiles/rebuild_cache.dir
+/home/myth/work/Server_prj/Mars/src/CMakeFiles/edit_cache.dir
+/home/myth/work/Server_prj/Mars/src/CMakeFiles/tcp_server.dir
